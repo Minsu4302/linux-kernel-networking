@@ -50,6 +50,8 @@ defaults
     timeout connect 5s
     timeout client  30s
     timeout server  30s
+    # wrk 종료 후 HAProxy가 연결 드레인을 기다리지 않도록 즉시 종료
+    hard-stop-after 1s
 frontend f
     bind *:8080
     default_backend be
@@ -62,8 +64,8 @@ EOF
 sudo haproxy -f /tmp/lb-haproxy-l4.cfg -p /tmp/lb-haproxy.pid
 _wait_port $LB_PORT
 wrk $WRK_OPTS "http://127.0.0.1:${LB_PORT}/"
-sudo kill "$(cat /tmp/lb-haproxy.pid)" 2>/dev/null || true
-sleep 2
+sudo kill -9 "$(cat /tmp/lb-haproxy.pid)" 2>/dev/null || true
+sleep 1
 
 # ──────────────────────────────────────────────
 echo ""
@@ -79,6 +81,7 @@ defaults
     timeout connect 5s
     timeout client  30s
     timeout server  30s
+    hard-stop-after 1s
 frontend f
     bind *:8080
     default_backend be
@@ -91,8 +94,8 @@ EOF
 sudo haproxy -f /tmp/lb-haproxy-l7.cfg -p /tmp/lb-haproxy.pid
 _wait_port $LB_PORT
 wrk $WRK_OPTS "http://127.0.0.1:${LB_PORT}/"
-sudo kill "$(cat /tmp/lb-haproxy.pid)" 2>/dev/null || true
-sleep 2
+sudo kill -9 "$(cat /tmp/lb-haproxy.pid)" 2>/dev/null || true
+sleep 1
 
 # ──────────────────────────────────────────────
 echo ""
@@ -119,8 +122,8 @@ EOF
 sudo nginx -c /tmp/lb-nginx.cfg
 _wait_port $LB_PORT
 wrk $WRK_OPTS "http://127.0.0.1:${LB_PORT}/"
-sudo kill "$(cat /tmp/lb-nginx.pid)" 2>/dev/null || true
-sleep 2
+sudo kill -9 "$(cat /tmp/lb-nginx.pid)" 2>/dev/null || true
+sleep 1
 
 echo ""
 echo "=== 전체 벤치마크 완료 ==="
