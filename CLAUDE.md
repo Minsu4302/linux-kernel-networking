@@ -57,6 +57,11 @@ main
 | 08. sysctl 튜닝 | `sysctl` |
 | 09. Ad-hoc & Mesh | `mesh` |
 | 10. VPN 비교 | `vpn` |
+| 11. XDP DDoS 방어 | `xdp-ddos` |
+| 12. Network Policy 벤치마크 | `netpol` |
+| 13. BGP & ECMP | `bgp` |
+| 14. HA Failover | `ha` |
+| 15. Cilium CNI | `cilium` |
 
 - 설명은 한글로, "무엇을" 보다 "왜/어떤 변화" 중심으로 작성
 
