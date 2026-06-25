@@ -10,7 +10,8 @@
 | 이름 | 머신 타입 | 리전/존 | 용도(주제) | 생성일 | 상태 |
 |------|-----------|---------|------------|--------|------|
 | lab-vm-01 | e2-standard-2 (2vCPU/8GB) | asia-northeast3-a | 01~08 단일 VM 실습 | 2026-06-22 | 🟢 실행 중 |
-| lab-vm-02 | e2-standard-2 (2vCPU/8GB) | asia-northeast3-a | 04 VXLAN 터널, 05 MTU 실습 완료 | 2026-06-22 | 🟡 중지 (2026-06-23, 09 메시 실습 시 재기동) |
+| lab-vm-02 | e2-standard-2 (2vCPU/8GB) | asia-northeast3-a | 04 VXLAN 터널, 05 MTU 실습 완료, 09 WireGuard Mesh | 2026-06-22 | 🟢 실행 중 (재기동 2026-06-25, 내부 IP: 10.178.0.3, 외부 IP: 34.22.85.41) |
+| lab-vm-03 | e2-standard-2 (2vCPU/8GB) | asia-northeast3-a | 09 WireGuard Mesh (3번째 노드) | 2026-06-25 | 🟢 실행 중 (내부 IP: 10.178.0.4, 외부 IP: 34.47.100.7) |
 
 ## 종료/삭제된 인스턴스 (비용 추적용 로그)
 
