@@ -8,11 +8,7 @@ echo "================================================================"
 printf "  %-20s %-10s %-10s %-10s %-10s\n" "조건" "%sys" "%softirq" "%idle" "사용률"
 printf "  %-20s %-10s %-10s %-10s %-10s\n" "----" "----" "--------" "-----" "------"
 
-for label file in \
-    "Baseline" /tmp/baseline_cpu.txt \
-    "iptables DROP" /tmp/iptables_cpu.txt \
-    "XDP DROP" /tmp/xdp_cpu.txt
-do
+while IFS=: read -r label file; do
     if [ -f "$file" ]; then
         awk -v label="$label" '/Average/ {
             printf "  %-20s %-10.1f %-10.1f %-10.1f %-10.1f\n",
@@ -21,11 +17,16 @@ do
     else
         printf "  %-20s (데이터 없음)\n" "$label"
     fi
-done
+done <<'EOF'
+Baseline:/tmp/baseline_cpu.txt
+iptables DROP:/tmp/iptables_cpu.txt
+XDP DROP:/tmp/xdp_cpu.txt
+EOF
 
 echo "================================================================"
 echo ""
 echo "핵심 해석:"
-echo "  - iptables: netfilter 훅 통과 후 드롭 → %sys, %softirq 높음"
+echo "  - Baseline: ICMP 응답 생성 오버헤드로 CPU 가장 높음"
+echo "  - iptables: netfilter 훅 통과 후 드롭 → 응답 없애 CPU 절감"
 echo "  - XDP:      NIC 초입에서 드롭 (xdpgeneric: SKB 생성 후 드롭)"
 echo "  - 프로덕션 native XDP는 SKB 생성 전 드롭 → 더 극적인 차이"
