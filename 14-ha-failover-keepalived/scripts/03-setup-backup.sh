@@ -21,7 +21,7 @@ HTML
 # nginx 포트 8080 설정
 sudo bash -c 'cat > /etc/nginx/sites-available/default' <<'NGINX'
 server {
-    listen 8080 default_server;
+    listen 80 default_server;
     root /var/www/html;
     index index.html;
 }

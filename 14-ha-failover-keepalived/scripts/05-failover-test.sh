@@ -3,7 +3,7 @@
 # 실행 후 vm-02에서 'sudo systemctl stop keepalived' 실행
 PRIMARY="10.178.0.3"
 BACKUP="10.178.0.4"
-PORT=8080
+PORT=80
 
 echo "================================================================"
 echo "  Failover 시간 정밀 측정"
